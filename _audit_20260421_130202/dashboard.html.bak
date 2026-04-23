@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>מרכז משימות ודוחות</title>
+  <style>
+    body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#111827}
+    .wrap{max-width:1100px;margin:0 auto;padding:20px}
+    .card{background:#fff;border-radius:18px;padding:18px;box-shadow:0 8px 24px rgba(0,0,0,.08);margin-bottom:16px}
+    .title{font-size:30px;font-weight:800}
+    .muted{color:#6b7280}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:12px;border-bottom:1px solid #eceff4;text-align:right}
+    .btn{display:inline-block;background:#123b69;color:#fff;padding:12px 16px;border-radius:12px;text-decoration:none;font-weight:700}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="title">לוח בקרה למורה</div>
+      <div class="muted" id="line">טוען נתונים...</div>
+    </div>
+    <div class="card">
+      <a class="btn" href="/api/launches" target="_blank">צפה בכניסות</a>
+    </div>
+    <div class="card">
+      <h2>כניסות לכלי</h2>
+      <div id="launches"></div>
+    </div>
+  </div>
+  <script>
+    async function boot() {
+      const b = await fetch("/api/bootstrap").then(r => r.json());
+      document.getElementById("line").textContent = `מורה: ${b.teacher.name} | מרחב: ${b.space.title} | מקור: ${b.source}`;
+      const launches = await fetch("/api/launches").then(r => r.json());
+      document.getElementById("launches").innerHTML = launches.length ? `
+        <table>
+          <thead><tr><th>זמן</th><th>סוג</th><th>מורה</th><th>מרחב</th><th>תקין</th><th>שגיאה</th></tr></thead>
+          <tbody>
+            ${launches.map(x => `<tr><td>${x.createdAt || ""}</td><td>${x.type || ""}</td><td>${x.teacherName || ""}</td><td>${x.spaceTitle || ""}</td><td>${x.ok ? "כן" : "לא"}</td><td>${x.error || "-"}</td></tr>`).join("")}
+          </tbody>
+        </table>` : '<div class="muted">אין כניסות עדיין</div>';
+    }
+    boot().catch(err => { document.getElementById("launches").innerHTML = `<div class="muted">${err.message}</div>`; });
+  </script>
+</body>
+</html>
