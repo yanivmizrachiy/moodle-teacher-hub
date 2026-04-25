@@ -92,6 +92,18 @@ function saveStore() {
   fs.writeFileSync(STORE_PATH, JSON.stringify(store, null, 2), "utf8");
 }
 
+function sendHtmlFile(res, filePath, status = 200) {
+  res.status(status);
+  res.setHeader("Content-Type", "text/html; charset=utf-8");
+  return res.sendFile(filePath);
+}
+
+function sendHtml(res, html, status = 200) {
+  res.status(status);
+  res.setHeader("Content-Type", "text/html; charset=utf-8");
+  return res.send(html);
+}
+
 function upsertTeacher(name, externalId = "teacher-demo") {
   let t = store.teachers.find(x => x.externalId === externalId);
   if (!t) {
@@ -265,6 +277,10 @@ app.get("/dev/login", (_req, res) => {
   return res.redirect("/");
 });
 
+app.get("/lti/launch-1p1", (_req, res) => {
+  return sendHtmlFile(res, path.join(__dirname, "views", "landing.html"));
+});
+
 app.post("/lti/launch-1p1", (req, res) => {
   const teacherName = req.body.lis_person_name_full || "מורה";
   const teacherExt = req.body.user_id || "lti11-user";
@@ -364,7 +380,7 @@ app.get("/api/export/grades.csv", (_req, res) => {
 app.get("/", (req, res) => {
   const session = getSession(req);
   if (!session) {
-    return res.send(`
+    return sendHtml(res, `
       <!doctype html>
       <html lang="he" dir="rtl">
       <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>מרכז משימות ודוחות</title></head>
@@ -376,7 +392,7 @@ app.get("/", (req, res) => {
       </html>
     `);
   }
-  return res.sendFile(path.join(__dirname, "views", "dashboard.html"));
+  return sendHtmlFile(res, path.join(__dirname, "views", "dashboard.html"));
 });
 
 app.listen(PORT, () => {
