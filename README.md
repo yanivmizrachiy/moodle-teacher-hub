@@ -1,45 +1,28 @@
 # LEGACY — Moodle Teacher Hub
 
-הריפו הזה אינו מקור האמת הפעיל יותר.
+הריפו הזה אינו מקור אמת פעיל ואסור לפתח בו מוצר חדש.
 
-מקור האמת המחייב והמאוחד להמשך הפרויקט הוא:
+## מקור האמת הפעיל של Teacher Hub
+`yanivmizrachiy/www`
 
-```text
-yanivmizrachiy/www
-```
-
-קישור:
-
-```text
 https://github.com/yanivmizrachiy/www
-```
 
-## למה הריפו הזה נשאר
+## מקור האמת היחיד של המצגת
+`yanivmizrachiy/moodle-guide-presentation`
 
-הריפו הזה נשמר זמנית כ־legacy כדי לא לאבד היסטוריה, קוד או תיעוד ישן.
+https://github.com/yanivmizrachiy/moodle-guide-presentation
 
-החומר החשוב מהריפו הזה נשמר בתוך הריפו `www` בקובץ:
+## כלל עבודה מחייב
+- אין לבצע כאן פיתוח חדש.
+- אין להוסיף כאן דרישות חדשות.
+- אין לערוך כאן את המצגת.
+- אין להשתמש בריפו הזה כמקור אמת לא ל-Teacher Hub ולא למצגת.
 
-```text
-docs/legacy-moodle-teacher-hub-snapshot.md
-```
-
-## כלל עבודה
-
-אין לבצע כאן פיתוח חדש.
-אין להוסיף כאן דרישות חדשות.
-אין להסתמך על הריפו הזה כמקור אמת.
-
-כל עבודה חדשה, תיעוד, בדיקות, קוד ו־STATE צריכים להתבצע רק ב:
-
-```text
-yanivmizrachiy/www
-```
-
-## סטטוס
+הריפו נשמר כ-legacy לצורך היסטוריה בלבד.
 
 ```text
 Status: legacy
-Canonical repo: yanivmizrachiy/www
+Teacher Hub canonical repo: yanivmizrachiy/www
+Presentation canonical repo: yanivmizrachiy/moodle-guide-presentation
 Do not use as source of truth
 ```
